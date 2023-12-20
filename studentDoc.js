@@ -19,6 +19,25 @@ const student = [{
         pass : true
     }]
 }]
+function middleWare(req,res,next)
+{
+    const name = req.headers.name;
+     
+    if(name != "Ghazali")
+    {
+        res.json({
+            msg : "Bad request"
+        });
+    }
+    else{
+        next();
+    }
+};
+app.get('/studentDetails', middleWare, (req,res) =>{
+    res.json({
+        msg : "Middle Ware Passed!!"
+    });
+});
 
 app.get('/students',(req,res) =>{ //This method gets ther details of the student object
     const name = student[0].name;
